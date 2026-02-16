@@ -51,34 +51,39 @@ color:white;
 position:relative;
 }
 
-.flower{
-position:absolute;
-font-size:30px;
-animation:fall linear forwards;
-}
+/* MESAJ KUTUSU (YENİ) */
 
-@keyframes fall{
-from{
-transform:translateY(-100px);
-opacity:1;
-}
-to{
-transform:translateY(100vh);
-opacity:0;
-}
-}
-
-.message{
+.message-box{
 position:absolute;
 top:50%;
 left:50%;
 transform:translate(-50%,-50%);
-font-size:40px;
-color:#ff4d6d;
+background:rgba(255,255,255,0.95);
+padding:30px 50px;
+border-radius:20px;
+box-shadow:0 0 30px rgba(0,0,0,0.4);
 text-align:center;
+animation:fadeIn 0.6s ease;
 }
 
-/* YENİ BÜYÜK KALP ANİMASYONU */
+.message{
+font-size:32px;
+color:#ff4d6d;
+font-weight:bold;
+}
+
+@keyframes fadeIn{
+from{
+opacity:0;
+transform:translate(-50%,-60%) scale(0.8);
+}
+to{
+opacity:1;
+transform:translate(-50%,-50%) scale(1);
+}
+}
+
+/* BÜYÜK KALP ANİMASYONU */
 
 .big-heart{
 position:absolute;
@@ -191,14 +196,18 @@ heart.remove();
 
 }
 
-// mesaj
+// MESAJ KUTUSU
+let box=document.createElement("div");
+box.className="message-box";
+
 let msg=document.createElement("div");
+msg.className="message";
 
 msg.innerHTML="Congratulations. You’ve unlocked today’s song.<br>girl in red - i wanna be your girlfriend ❤️";
 
-msg.className="message";
+box.appendChild(msg);
 
-document.body.appendChild(msg);
+document.body.appendChild(box);
 
 }
 
