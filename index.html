@@ -59,13 +59,14 @@ position:relative;
 }
 
 .center-heart{
-position:absolute;
+position:fixed;
 top:50%;
 left:50%;
 transform:translate(-50%,-50%);
 font-size:140px;
 animation:pulse 1s infinite alternate;
 pointer-events:none;
+z-index:998;
 }
 
 @keyframes pulse{
@@ -74,32 +75,46 @@ to{transform:translate(-50%,-50%) scale(1.25);}
 }
 
 .glass{
-position:absolute;
+position:fixed;
 top:50%;
 left:50%;
 transform:translate(-50%,-50%);
-background:rgba(255,255,255,0.1);
+background:rgba(255,255,255,0.15);
 padding:40px;
 border-radius:20px;
 backdrop-filter:blur(20px);
 text-align:center;
 animation:fadeIn 1s ease;
+z-index:999;
+box-shadow:0 0 40px rgba(0,0,0,0.3);
 }
 
 @keyframes fadeIn{
-from{opacity:0; transform:translate(-50%,-40%);}
-to{opacity:1; transform:translate(-50%,-50%);}
+from{
+opacity:0;
+transform:translate(-50%,-40%);
+}
+to{
+opacity:1;
+transform:translate(-50%,-50%);
+}
 }
 
 .song-btn{
 margin-top:20px;
-padding:12px 25px;
+padding:14px 28px;
 background:#ff4d6d;
 border:none;
-border-radius:10px;
+border-radius:12px;
 color:white;
 font-size:16px;
 cursor:pointer;
+transition:0.3s;
+}
+
+.song-btn:hover{
+transform:scale(1.1);
+box-shadow:0 0 20px rgba(255,77,109,0.8);
 }
 
 </style>
@@ -117,3 +132,76 @@ Can I make it up to you?
 <button id="yes">Yes</button>
 <button id="no">No</button>
 
+</div>
+
+<script>
+
+let yes=document.getElementById("yes");
+let no=document.getElementById("no");
+let main=document.getElementById("main");
+
+let size=18;
+
+no.onclick=function(){
+
+let x=Math.random()*(window.innerWidth-100);
+let y=Math.random()*(window.innerHeight-50);
+
+no.style.position="absolute";
+no.style.left=x+"px";
+no.style.top=y+"px";
+
+size+=8;
+
+yes.style.fontSize=size+"px";
+yes.style.padding=size+"px "+(size*2)+"px";
+
+}
+
+yes.onclick=function(){
+
+// blur arka plan
+main.classList.add("blur");
+
+// dev atan kalp
+let heart=document.createElement("div");
+heart.innerHTML="❤️";
+heart.className="center-heart";
+document.body.appendChild(heart);
+
+// cam panel
+let panel=document.createElement("div");
+panel.className="glass";
+
+panel.innerHTML=`
+<div style="font-size:28px;margin-bottom:10px;">
+Congratulations.
+</div>
+
+<div style="font-size:18px;opacity:0.9;margin-bottom:10px;">
+You've earned the right to listen to the song of the day.
+</div>
+
+<div style="font-size:16px;opacity:0.7;margin-bottom:20px;">
+girl in red – i wanna be your girlfriend
+</div>
+
+<button class="song-btn" onclick="playSong()">
+Play Song ❤️
+</button>
+`;
+
+document.body.appendChild(panel);
+
+}
+
+function playSong(){
+
+window.location.href="https://www.youtube.com/watch?v=9qZK-7O6pUw";
+
+}
+
+</script>
+
+</body>
+</html>
