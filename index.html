@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Question</title>
+
+<style>
+
+body{
+margin:0;
+height:100vh;
+background:black;
+color:white;
+display:flex;
+justify-content:center;
+align-items:center;
+font-family:Arial;
+overflow:hidden;
+}
+
+.container{
+text-align:center;
+}
+
+h1{
+font-size:30px;
+margin-bottom:30px;
+}
+
+button{
+padding:15px 30px;
+font-size:18px;
+border:none;
+border-radius:10px;
+cursor:pointer;
+margin:10px;
+transition:0.3s;
+}
+
+#yes{
+background:#ff4d6d;
+color:white;
+}
+
+#no{
+background:#333;
+color:white;
+position:relative;
+}
+
+.flower{
+position:absolute;
+font-size:30px;
+animation:fall linear forwards;
+}
+
+@keyframes fall{
+from{
+transform:translateY(-100px);
+opacity:1;
+}
+to{
+transform:translateY(100vh);
+opacity:0;
+}
+}
+
+.message{
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+font-size:40px;
+color:#ff4d6d;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>
+I know I messed up.<br>
+Can I make it up to you?
+</h1>
+
+<button id="yes">Yes</button>
+<button id="no">No</button>
+
+</div>
+
+<script>
+
+let yes = document.getElementById("yes");
+let no = document.getElementById("no");
+
+let size = 18;
+
+no.onclick = function(){
+
+let x = Math.random()*(window.innerWidth-100);
+let y = Math.random()*(window.innerHeight-50);
+
+no.style.position="absolute";
+no.style.left=x+"px";
+no.style.top=y+"px";
+
+size += 8;
+
+yes.style.fontSize=size+"px";
+yes.style.padding=size+"px "+(size*2)+"px";
+
+}
+
+yes.onclick = function(){
+
+for(let i=0;i<40;i++){
+
+let flower=document.createElement("div");
+
+flower.innerHTML="🌸";
+
+flower.className="flower";
+
+flower.style.left=Math.random()*100+"vw";
+
+flower.style.animationDuration=(Math.random()*3+2)+"s";
+
+document.body.appendChild(flower);
+
+setTimeout(()=>{
+flower.remove();
+},5000);
+
+}
+
+let msg=document.createElement("div");
+
+msg.innerHTML="Thank you ❤️";
+
+msg.className="message";
+
+document.body.appendChild(msg);
+
+}
+
+</script>
+
+</body>
+</html>
