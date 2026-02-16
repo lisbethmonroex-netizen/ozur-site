@@ -77,6 +77,48 @@ font-size:40px;
 color:#ff4d6d;
 }
 
+/* YENİ BÜYÜK KALP ANİMASYONU */
+
+.big-heart{
+position:absolute;
+font-size:80px;
+left:50%;
+top:50%;
+transform:translate(-50%,-50%);
+animation:explode 1.5s ease-out forwards;
+pointer-events:none;
+}
+
+@keyframes explode{
+0%{
+transform:translate(-50%,-50%) scale(0);
+opacity:1;
+}
+100%{
+transform:translate(calc(-50% + var(--x)), calc(-50% + var(--y))) scale(2.5);
+opacity:0;
+}
+}
+
+.center-heart{
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+font-size:120px;
+animation:pulse 1s infinite alternate;
+pointer-events:none;
+}
+
+@keyframes pulse{
+from{
+transform:translate(-50%,-50%) scale(1);
+}
+to{
+transform:translate(-50%,-50%) scale(1.3);
+}
+}
+
 </style>
 </head>
 
@@ -119,29 +161,39 @@ yes.style.padding=size+"px "+(size*2)+"px";
 
 yes.onclick = function(){
 
-for(let i=0;i<40;i++){
+// ortada pulse atan dev kalp
+let centerHeart=document.createElement("div");
+centerHeart.innerHTML="❤️";
+centerHeart.className="center-heart";
+document.body.appendChild(centerHeart);
 
-let flower=document.createElement("div");
+// patlayan büyük kalpler
+for(let i=0;i<30;i++){
 
-flower.innerHTML="🌸";
+let heart=document.createElement("div");
 
-flower.className="flower";
+heart.innerHTML="❤️";
 
-flower.style.left=Math.random()*100+"vw";
+heart.className="big-heart";
 
-flower.style.animationDuration=(Math.random()*3+2)+"s";
+let x=(Math.random()*800-400)+"px";
+let y=(Math.random()*800-400)+"px";
 
-document.body.appendChild(flower);
+heart.style.setProperty("--x", x);
+heart.style.setProperty("--y", y);
+
+document.body.appendChild(heart);
 
 setTimeout(()=>{
-flower.remove();
-},5000);
+heart.remove();
+},1500);
 
 }
 
+// mesaj
 let msg=document.createElement("div");
 
-msg.innerHTML="Thank you ❤️";
+msg.innerHTML="I’ll make it up to you. I promise. ❤️";
 
 msg.className="message";
 
