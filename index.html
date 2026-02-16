@@ -62,6 +62,7 @@ border-radius:20px;
 box-shadow:0 0 30px rgba(0,0,0,0.4);
 text-align:center;
 animation:fadeIn 0.6s ease;
+z-index:10;
 }
 
 .message{
@@ -97,6 +98,52 @@ opacity:1;
 transform:translate(-50%,-50%) scale(1);
 }
 }
+
+/* YOUTUBE POPUP */
+
+.video-popup{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.8);
+display:flex;
+justify-content:center;
+align-items:center;
+z-index:20;
+animation:fadeIn 0.4s ease;
+}
+
+.video-container{
+position:relative;
+width:80%;
+max-width:800px;
+aspect-ratio:16/9;
+}
+
+.video-container iframe{
+width:100%;
+height:100%;
+border-radius:15px;
+border:none;
+box-shadow:0 0 40px rgba(255,77,109,0.6);
+}
+
+.close-button{
+position:absolute;
+top:-40px;
+right:0;
+background:#ff4d6d;
+color:white;
+border:none;
+padding:8px 15px;
+border-radius:8px;
+cursor:pointer;
+font-size:16px;
+}
+
+/* HEART ANIMATION */
 
 .big-heart{
 position:absolute;
@@ -157,28 +204,28 @@ Can I make it up to you?
 
 <script>
 
-let yes = document.getElementById("yes");
-let no = document.getElementById("no");
+let yes=document.getElementById("yes");
+let no=document.getElementById("no");
 
-let size = 18;
+let size=18;
 
-no.onclick = function(){
+no.onclick=function(){
 
-let x = Math.random()*(window.innerWidth-100);
-let y = Math.random()*(window.innerHeight-50);
+let x=Math.random()*(window.innerWidth-100);
+let y=Math.random()*(window.innerHeight-50);
 
 no.style.position="absolute";
 no.style.left=x+"px";
 no.style.top=y+"px";
 
-size += 8;
+size+=8;
 
 yes.style.fontSize=size+"px";
 yes.style.padding=size+"px "+(size*2)+"px";
 
 }
 
-yes.onclick = function(){
+yes.onclick=function(){
 
 let centerHeart=document.createElement("div");
 centerHeart.innerHTML="❤️";
@@ -194,14 +241,12 @@ heart.className="big-heart";
 let x=(Math.random()*800-400)+"px";
 let y=(Math.random()*800-400)+"px";
 
-heart.style.setProperty("--x", x);
-heart.style.setProperty("--y", y);
+heart.style.setProperty("--x",x);
+heart.style.setProperty("--y",y);
 
 document.body.appendChild(heart);
 
-setTimeout(()=>{
-heart.remove();
-},1500);
+setTimeout(()=>heart.remove(),1500);
 
 }
 
@@ -217,8 +262,32 @@ play.className="play-button";
 play.innerHTML="▶ Play Song";
 
 play.onclick=function(){
-window.open("https://www.youtube.com/watch?v=AKf0qOuFbzc","_blank");
-};
+
+let popup=document.createElement("div");
+popup.className="video-popup";
+
+let container=document.createElement("div");
+container.className="video-container";
+
+let close=document.createElement("button");
+close.className="close-button";
+close.innerHTML="Close";
+
+close.onclick=function(){
+popup.remove();
+}
+
+let iframe=document.createElement("iframe");
+iframe.src="https://www.youtube.com/embed/AKf0qOuFbzc?autoplay=1";
+iframe.allow="autoplay";
+
+container.appendChild(close);
+container.appendChild(iframe);
+popup.appendChild(container);
+
+document.body.appendChild(popup);
+
+}
 
 box.appendChild(msg);
 box.appendChild(play);
