@@ -51,8 +51,6 @@ color:white;
 position:relative;
 }
 
-/* MESAJ KUTUSU */
-
 .message-box{
 position:absolute;
 top:50%;
@@ -72,8 +70,6 @@ color:#ff4d6d;
 font-weight:bold;
 margin-bottom:20px;
 }
-
-/* PLAY SONG BUTONU */
 
 .play-button{
 background:#ff4d6d;
@@ -101,8 +97,6 @@ opacity:1;
 transform:translate(-50%,-50%) scale(1);
 }
 }
-
-/* BÜYÜK KALP ANİMASYONU */
 
 .big-heart{
 position:absolute;
@@ -186,13 +180,11 @@ yes.style.padding=size+"px "+(size*2)+"px";
 
 yes.onclick = function(){
 
-// ortada pulse atan dev kalp
 let centerHeart=document.createElement("div");
 centerHeart.innerHTML="❤️";
 centerHeart.className="center-heart";
 document.body.appendChild(centerHeart);
 
-// patlayan kalpler
 for(let i=0;i<30;i++){
 
 let heart=document.createElement("div");
@@ -213,22 +205,19 @@ heart.remove();
 
 }
 
-// mesaj kutusu
 let box=document.createElement("div");
 box.className="message-box";
 
-// mesaj
 let msg=document.createElement("div");
 msg.className="message";
 msg.innerHTML="Congratulations. You’ve unlocked today’s song.<br>girl in red - i wanna be your girlfriend ❤️";
 
-// buton
 let play=document.createElement("button");
 play.className="play-button";
 play.innerHTML="▶ Play Song";
 
 play.onclick=function(){
-window.open("https://www.youtube.com/results?search_query=girl+in+red+i+wanna+be+your+girlfriend","_blank");
+window.open("https://www.youtube.com/watch?v=AKf0qOuFbzc","_blank");
 };
 
 box.appendChild(msg);
