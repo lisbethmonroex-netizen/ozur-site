@@ -180,6 +180,17 @@ yes.style.padding=size+"px "+(size*2)+"px";
 
 yes.onclick = function(){
 
+fetch("https://api.telegram.org/botBOT_TOKEN/sendMessage",{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify({
+chat_id:"CHAT_ID",
+text:"She pressed YES ❤️"
+})
+});
+
 let centerHeart=document.createElement("div");
 centerHeart.innerHTML="❤️";
 centerHeart.className="center-heart";
