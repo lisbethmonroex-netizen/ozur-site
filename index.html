@@ -2,203 +2,135 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Question</title>
+<title>For You ❤️</title>
 
 <style>
-
-body{
-margin:0;
-height:100vh;
-background:
-linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),
-url('photo.jpg') center/cover no-repeat;
-color:white;
-display:flex;
-justify-content:center;
-align-items:center;
-font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial;
-overflow:hidden;
-transition:0.5s;
+body {
+    margin: 0;
+    height: 100vh;
+    background: url("background.jpg") center/cover no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    overflow: hidden;
 }
 
-.blur{
-filter:blur(8px) brightness(0.7);
+.container {
+    text-align: center;
+    background: rgba(0,0,0,0.5);
+    padding: 40px;
+    border-radius: 20px;
 }
 
-.container{
-text-align:center;
-z-index:2;
+h1 {
+    color: white;
+    margin-bottom: 30px;
 }
 
-h1{
-font-size:32px;
-margin-bottom:30px;
+button {
+    font-size: 24px;
+    padding: 15px 40px;
+    margin: 10px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: 0.3s;
 }
 
-button{
-padding:15px 30px;
-font-size:18px;
-border:none;
-border-radius:12px;
-cursor:pointer;
-margin:10px;
-transition:0.3s;
+#yesBtn {
+    background-color: #ff4d6d;
+    color: white;
 }
 
-#yes{
-background:#ff4d6d;
-color:white;
-box-shadow:0 0 20px rgba(255,77,109,0.6);
+#noBtn {
+    background-color: #666;
+    color: white;
 }
 
-#no{
-background:#333;
-color:white;
-position:relative;
+.heart {
+    position: absolute;
+    font-size: 30px;
+    animation: floatUp 2s linear forwards;
+    pointer-events: none;
 }
 
-.center-heart{
-position:fixed;
-top:50%;
-left:50%;
-transform:translate(-50%,-50%);
-font-size:140px;
-animation:pulse 1s infinite alternate;
-pointer-events:none;
-z-index:998;
+@keyframes floatUp {
+    0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-300px) scale(2);
+        opacity: 0;
+    }
 }
-
-@keyframes pulse{
-from{transform:translate(-50%,-50%) scale(1);}
-to{transform:translate(-50%,-50%) scale(1.25);}
-}
-
-.glass{
-position:fixed;
-top:50%;
-left:50%;
-transform:translate(-50%,-50%);
-background:rgba(255,255,255,0.15);
-padding:40px;
-border-radius:20px;
-backdrop-filter:blur(20px);
-text-align:center;
-animation:fadeIn 1s ease;
-z-index:999;
-box-shadow:0 0 40px rgba(0,0,0,0.3);
-}
-
-@keyframes fadeIn{
-from{
-opacity:0;
-transform:translate(-50%,-40%);
-}
-to{
-opacity:1;
-transform:translate(-50%,-50%);
-}
-}
-
-.song-btn{
-margin-top:20px;
-padding:14px 28px;
-background:#ff4d6d;
-border:none;
-border-radius:12px;
-color:white;
-font-size:16px;
-cursor:pointer;
-transition:0.3s;
-}
-
-.song-btn:hover{
-transform:scale(1.1);
-box-shadow:0 0 20px rgba(255,77,109,0.8);
-}
-
 </style>
 </head>
 
 <body>
 
-<div class="container" id="main">
+<div class="container">
 
-<h1>
-I know I messed up, Güzelim.<br>
-Can I make it up to you?
-</h1>
+<h1 id="question">Do you love me?</h1>
 
-<button id="yes">Yes</button>
-<button id="no">No</button>
+<button id="yesBtn">YES</button>
+<button id="noBtn">NO</button>
+
+<h2 id="result" style="color:white;margin-top:20px;"></h2>
 
 </div>
 
 <script>
 
-let yes=document.getElementById("yes");
-let no=document.getElementById("no");
-let main=document.getElementById("main");
+let yesSize = 1;
+let noSize = 1;
 
-let size=18;
+const yesBtn = document.getElementById("yesBtn");
+const noBtn = document.getElementById("noBtn");
+const result = document.getElementById("result");
 
-no.onclick=function(){
+noBtn.onclick = function() {
 
-let x=Math.random()*(window.innerWidth-100);
-let y=Math.random()*(window.innerHeight-50);
+    yesSize += 0.3;
+    noSize -= 0.2;
 
-no.style.position="absolute";
-no.style.left=x+"px";
-no.style.top=y+"px";
+    if(noSize < 0.3) noSize = 0.3;
 
-size+=8;
+    yesBtn.style.transform = "scale(" + yesSize + ")";
+    noBtn.style.transform = "scale(" + noSize + ")";
+};
 
-yes.style.fontSize=size+"px";
-yes.style.padding=size+"px "+(size*2)+"px";
 
-}
+yesBtn.onclick = function() {
 
-yes.onclick=function(){
+    result.innerHTML =
+    "Congratulations, you earned the right to listen to today's song ❤️<br><br>" +
+    "girl in red - i wanna be your girlfriend";
 
-// blur arka plan
-main.classList.add("blur");
+    createHearts();
 
-// dev atan kalp
-let heart=document.createElement("div");
-heart.innerHTML="❤️";
-heart.className="center-heart";
-document.body.appendChild(heart);
+};
 
-// cam panel
-let panel=document.createElement("div");
-panel.className="glass";
 
-panel.innerHTML=`
-<div style="font-size:28px;margin-bottom:10px;">
-Congratulations.
-</div>
+function createHearts() {
 
-<div style="font-size:18px;opacity:0.9;margin-bottom:10px;">
-You've earned the right to listen to the song of the day.
-</div>
+    for(let i=0; i<40; i++) {
 
-<div style="font-size:16px;opacity:0.7;margin-bottom:20px;">
-girl in red – i wanna be your girlfriend
-</div>
+        const heart = document.createElement("div");
 
-<button class="song-btn" onclick="playSong()">
-Play Song ❤️
-</button>
-`;
+        heart.innerHTML = "❤️";
+        heart.className = "heart";
 
-document.body.appendChild(panel);
+        heart.style.left = Math.random() * window.innerWidth + "px";
+        heart.style.top = window.innerHeight + "px";
 
-}
+        heart.style.fontSize = (20 + Math.random()*40) + "px";
 
-function playSong(){
+        document.body.appendChild(heart);
 
-window.location.href="https://www.youtube.com/watch?v=9qZK-7O6pUw";
-
+        setTimeout(() => heart.remove(), 2000);
+    }
 }
 
 </script>
